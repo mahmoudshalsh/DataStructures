@@ -4,17 +4,17 @@ using Xunit;
 
 namespace Tests
 {
-    public class LinkedListShould
+    public class DoublyLinkedListShould
     {
-        LinkedList<int> linkedList;
-        LinkedListNode<int> tailExpected, middleExpected, headExpected;
+        DoublyLinkedList<int> linkedList;
+        DoublyLinkedListNode<int> tailExpected, middleExpected, headExpected;
 
-        public LinkedListShould()
+        public DoublyLinkedListShould()
         {
-            linkedList = new LinkedList<int>();
-            tailExpected = new LinkedListNode<int>(5);
-            middleExpected = new LinkedListNode<int>(4, tailExpected);
-            headExpected = new LinkedListNode<int>(3, middleExpected);
+            linkedList = new DoublyLinkedList<int>();
+            tailExpected = new DoublyLinkedListNode<int>(5, null, middleExpected);
+            middleExpected = new DoublyLinkedListNode<int>(4, tailExpected, headExpected);
+            headExpected = new DoublyLinkedListNode<int>(3, middleExpected);
         }
 
         [Fact]
@@ -29,6 +29,7 @@ namespace Tests
             Assert.Equal(tailExpected, linkedList.Tail);
             Assert.Equal(headExpected, linkedList.Head);
             Assert.Equal(middleExpected, linkedList.Head.Next);
+            Assert.Equal(middleExpected, linkedList.Tail.Previous);
             Assert.Equal(3, linkedList.Count);
         }
 
@@ -44,6 +45,7 @@ namespace Tests
             Assert.Equal(tailExpected, linkedList.Tail);
             Assert.Equal(headExpected, linkedList.Head);
             Assert.Equal(middleExpected, linkedList.Head.Next);
+            Assert.Equal(middleExpected, linkedList.Tail.Previous);
             Assert.Equal(3, linkedList.Count);
         }
 
@@ -58,11 +60,13 @@ namespace Tests
             // Act & Assert
             linkedList.RemoveFirstNode();
             Assert.Equal(middleExpected, linkedList.Head);
+            Assert.Equal(null, linkedList.Head.Previous);
             Assert.Equal(tailExpected, linkedList.Tail);
             Assert.Equal(2, linkedList.Count);
 
             linkedList.RemoveFirstNode();
             Assert.Equal(tailExpected, linkedList.Head);
+            Assert.Equal(null, linkedList.Head.Previous);
             Assert.Equal(tailExpected, linkedList.Tail);
             Assert.Equal(1, linkedList.Count);
 
@@ -118,8 +122,8 @@ namespace Tests
 
             // Assert
             Assert.Equal(System.Linq.Enumerable.Range(1, 5), actual);
-            Assert.Equal(new LinkedListNode<int>(1), linkedList.Head);
-            Assert.Equal(new LinkedListNode<int>(5), linkedList.Tail);
+            Assert.Equal(new DoublyLinkedListNode<int>(1), linkedList.Head);
+            Assert.Equal(new DoublyLinkedListNode<int>(5), linkedList.Tail);
             Assert.Equal(5, linkedList.Count);
         }
 
@@ -135,6 +139,7 @@ namespace Tests
             Assert.Equal(tailExpected, linkedList.Tail);
             Assert.Equal(headExpected, linkedList.Head);
             Assert.Equal(middleExpected, linkedList.Head.Next);
+            Assert.Equal(middleExpected, linkedList.Tail.Previous);
             Assert.Equal(3, linkedList.Count);
         }
 
@@ -202,6 +207,7 @@ namespace Tests
 
             // Assert
             Assert.Equal(headExpected, linkedList.Head);
+            Assert.Equal(headExpected, linkedList.Tail.Previous);
             Assert.Equal(tailExpected, linkedList.Head.Next);
             Assert.Equal(tailExpected, linkedList.Tail);
             Assert.Equal(2, linkedList.Count);

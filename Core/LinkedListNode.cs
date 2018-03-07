@@ -12,7 +12,7 @@ namespace Core
         /// <summary>
         /// The next node in the linked list (null if last node)
         /// </summary>
-        public LinkedListNode<T> Next { get; set; }
+        public LinkedListNode<T> Next { get; set; } = null;
 
         public LinkedListNode(T Value) => this.Value = Value;
         public LinkedListNode(T Value, LinkedListNode<T> Next) : this(Value) => this.Next = Next;
