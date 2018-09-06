@@ -11,6 +11,8 @@ namespace Core
         public int Count { get; private set; } = 0;
         public bool IsReadOnly { get; private set; } = false;
 
+
+
         #region Add
 
         public void AddNodeInFirst(DoublyLinkedListNode<T> item)
